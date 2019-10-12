@@ -1,6 +1,10 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.8)
 
-project(runner)
+project(main)
+
+set(BOOST_MIN_VERSION "1.71.0")
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib") 
@@ -17,13 +21,15 @@ include_directories(
 ) 
 
 set(APP_SOURCES src/main.cpp)
-set(LIB_SOURCES src/World.cpp)
+ set(LIB_SOURCES src/World.cpp)
 
-# creates ./build/bin/runner
+add_compile_options( -pedantic-errors -Werror -Wall -Wextra)
+
+# creates ./build/bin/main
 add_executable(${PROJECT_NAME} ${APP_SOURCES})
 
 # shared library
-set(LIBRARY_NAME World)
+set(LIBRARY_NAME world)
 add_library(${LIBRARY_NAME} SHARED ${LIB_SOURCES})
 target_link_libraries(${PROJECT_NAME} ${LIBRARY_NAME})
 
